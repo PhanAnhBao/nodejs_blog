@@ -27,3 +27,8 @@
     + Khi gửi dữ liệu thì nó không đính trên URL (gửi ngầm)
     + Submit dưới dạng Form Data
     + lấy dữ liệu: req.body
+
+- Mô hình MVC
+    + Model
+    + View
+    + Controller
