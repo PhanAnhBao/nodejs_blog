@@ -32,3 +32,8 @@
     + Model
     + View
     + Controller
+
+- Code formatter
+    + prettier
+    + lint-staged
+    + husky
