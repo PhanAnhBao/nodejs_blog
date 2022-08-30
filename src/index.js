@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const path = require('path');
 const route = require('./routes/index.route');
 const db = require('./config/db');
+const methodOverride = require('method-override');
 
 //-- Connect to DB
 db.connect();
@@ -16,12 +17,17 @@ app.use(express.urlencoded({
   extended: true
 }));
 app.use(express.json());
+
+app.use(methodOverride('_method'))
 //-- HTTP Logger
 app.use(morgan('combined'));
 
 //-- Template Engine
 app.engine('hbs', hdb.engine({
-  extname: ".hbs"
+  extname: ".hbs",
+  helpers: {
+    sum: (a, b) => a + b
+  }
 }));
 app.set('view engine', 'hbs');
 

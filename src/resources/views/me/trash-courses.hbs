@@ -1,0 +1,112 @@
+<div class="mt-4">
+    <div class="mb-4 deleted_soft text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+            class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 15.75L3 12m0 0l3.75-3.75M3 12h18" />
+        </svg>
+
+        <a href="/me/stored/courses">Danh sách khóa học</a>
+    </div>
+    <div>
+        <h3>Khóa học đã xóa</h3>
+    </div>
+
+    <table class="table table-striped mt-4  ">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên khóa học</th>
+                <th scope="col">Hình ảnh</th>
+                <th scope="col">Thời gian xóa</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each course}}
+            <tr>
+                <th scope="row">{{sum @index 1}}</th>
+                <td>{{this.name}}</td>
+                <td><img src="{{this.thumbnail}}" alt="{{this.name}}" width="100" /></td>
+                <td>{{this.deletedAt}}</td>
+                <td><a href="" class="btn btn-primary btn-restore" data-id="{{this._id}}">Khôi phục</a></td>
+                <td><a data-id="{{this._id}}" data-bs-toggle="modal" data-bs-target="#exampleModal" href=""
+                        class="btn btn-danger">Xóa vĩnh viễn</a></td>
+            </tr>
+            {{else}}
+            <tr>
+                <td colspan="6" class="text-center">
+                    Thùng rác trống.
+                    <a href="/me/stored/courses">Danh sách khóa học</a>
+
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+{{!-- Confirm delete course --}}
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Xóa khóa học?</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Hành động này không thể khôi phục. Bạn vẫn muốn xóa khóa học này?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="btn--delete_courses" type="button" class="btn btn-danger">Xóa vĩnh viễn</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<form class="mt-4" method="POST" name="delete-course-form">
+
+</form>
+
+<form class="mt-4" method="POST" name="restore-course-form">
+
+</form>
+
+<script>
+
+    let exampleModal = document.getElementById('exampleModal');
+    let id;
+    let deleteForm = document.forms['delete-course-form'];
+    let restoreForm = document.forms['restore-course-form'];
+    let buttonDeleteEl = document.getElementById("btn--delete_courses");
+    let btnRestore = document.getElementsByClassName('btn-restore');
+
+
+    exampleModal.addEventListener('show.bs.modal', function (event) {
+        let button = event.relatedTarget;
+        id = button.getAttribute('data-id');
+    })
+
+
+    buttonDeleteEl.addEventListener('click', deleted);
+    function deleted() {
+        deleteForm.action = '/courses/' + id + '/force?_method=DELETE';
+        deleteForm.submit();
+    }
+
+
+    for (let i = 0; i < btnRestore.length; i += 1) {
+        btnRestore[i].addEventListener('click', function (e) {
+            e.preventDefault();
+            let courseId = btnRestore[i].getAttribute('data-id');
+            restoreForm.action = '/courses/' + courseId + '/restore?_method=PATCH';
+            restoreForm.submit();
+        })
+    }
+
+
+
+</script>

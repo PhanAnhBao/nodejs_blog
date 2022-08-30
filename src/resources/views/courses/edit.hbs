@@ -1,0 +1,22 @@
+<div class="mt-4">
+    <h3>Sửa khóa học</h3>
+    <form class="mt-4" method="POST" action="/courses/{{course._id}}?_method=PUT">
+        <div class="mb-3">
+            <label for="quantrong" class="form-label bor_solid"><span>(*)</span> là bắt buộc</label>
+        </div>
+        <div class="mb-3">
+            <label for="name" class="form-label">Tên khóa học <span>(*)</span></label>
+            <input type="text" class="form-control"  value="{{course.name}}" id="name" name="name" placeholder="Nhập tên khóa học ...">
+        </div>
+        <div class="mb-3">
+            <label for="thumbnail" class="form-label">Hình ảnh <span>(*)</span></label>
+            <input type="text" class="form-control" value="{{course.thumbnail}}" id="thumbnail" name="thumbnail" placeholder="Hình ảnh ...">
+            <img class="mt-2" src="{{course.thumbnail}}" alt="{{course.name}}" width="200"/>
+        </div>
+        <div class="mb-3">
+            <label for="videoId" class="form-label">Video ID <span>(*)</span></label>
+            <input type="text" class="form-control" value="{{course.videoId}}" id="videoId" name="videoId" placeholder="Video ...">
+        </div>
+        <button type="submit" class="btn btn-primary">Lưu lại</button>
+    </form>
+</div>
