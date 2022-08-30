@@ -41,3 +41,10 @@ td a {
     width: 30px; }
   .deleted_soft:hover {
     color: blue; }
+
+.flex_check {
+  display: flex;
+  gap: 30px;
+  align-items: center; }
+  .flex_check select {
+    width: 200px; }

@@ -57,3 +57,14 @@ td {
         color: blue;
     }
 }
+
+.flex_check {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+
+    select {
+        width: 200px;
+    }
+}
+
